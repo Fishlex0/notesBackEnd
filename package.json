@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js",
-    "knex": "knex seed:run"
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
