@@ -3,17 +3,6 @@ const cors = require('cors');
 const app = express();
 const port = 3001;
 
-const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
-
-const serviceAccount = require('./cert/notesapp-88bcc-5ae186c94d65.json');
-
-initializeApp({
-  credential: cert(serviceAccount)
-});
-
-const db = getFirestore();
-
 app.use(cors());
 
 app.get('/categories', (req, res) => {
@@ -29,17 +18,6 @@ app.get('/categories', (req, res) => {
       {name: 'Onion', description: 'Onion :D'},
     ]},
   ];
-
-  const docRef = db.collection('categories').doc('animals');
-
-  const addData = async () => {
-    await docRef.set({
-      name: 'Cat',
-    });
-    
-  }
-  addData();
-  console.log('Added data...');
 
   res.json(mockupCategories);
 })
