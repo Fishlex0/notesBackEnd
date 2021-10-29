@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon server.js",
-    "refresh-db": "knex migrate:rollback && knex migrate:latest && knex seed:run"
+    "reset-db": "knex migrate:rollback && knex migrate:latest && knex seed:run"
   },
   "dependencies": {
     "cors": "^2.8.5",
