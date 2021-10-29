@@ -8,11 +8,12 @@ const categoriesRouter = require('./routes/index');
 // CORS CONFIG
 app.use(cors());
 
+// PARSE REQUEST BODY
+app.use(express.json()) 
+
 // ROUTES
 app.use(categoriesRouter);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}...`);
 });
-
-// category {name: string, notices: [Notice: {name: string, description}]}

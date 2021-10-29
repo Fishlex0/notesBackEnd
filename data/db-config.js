@@ -15,12 +15,22 @@ function getCategories() {
     return db('categories');
 }
 
+function getCategoryById(id) {
+    return db('categories').where({id: id})
+}
+
 function getNotes(id) {
     return db('notes').where({ category_id: Number(id) });
 }
 
+function insertNote(note) {
+    return db('notes').insert(note);
+}
+
 module.exports = {
     getCategories,
-    getNotes,
+    getCategoryById,
     insertCategory,
+    getNotes,
+    insertNote,
 }
