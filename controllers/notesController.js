@@ -5,7 +5,10 @@ exports.notes = async (req, res) => {
   try {
     const notes = await db.getNotes(req.params.categoryId);
 
-    res.status(200).json(notes);
+    if (notes.length > 0) {
+      return res.status(200).json(notes)
+    }
+    res.status(404).json({error: 'No data found'});
   } catch (error) {
     console.log('Error: ', error);
     
