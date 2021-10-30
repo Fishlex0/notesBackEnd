@@ -16,7 +16,7 @@ function getCategories() {
 }
 
 function getCategoryById(id) {
-    return db('categories').where({id: id})
+    return db('categories').where({ id: id })
 }
 
 function getNotes(id) {
@@ -27,10 +27,17 @@ function insertNote(note) {
     return db('notes').insert(note);
 }
 
+function updateNote(note) {
+    return db('notes')
+        .where({ id: note.noteId })
+        .update({title: note.title, content: note.content, category_id: note.category_id});
+}
+
 module.exports = {
     getCategories,
     getCategoryById,
     insertCategory,
     getNotes,
     insertNote,
+    updateNote,
 }

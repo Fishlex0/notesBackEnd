@@ -8,6 +8,6 @@ const notesController = require('../controllers/notesController');
 router.get('/categories', categoryController.categories);
 
 router.get('/notes/:categoryId', notesController.notes);
-router.post('/notes', notesController.insertNote);
+router.post('/notes', notesController.saveNote);
 
 module.exports = router;
