@@ -15,8 +15,16 @@ function getCategories() {
     return db('categories');
 }
 
+function getCategoryByName(categoryName) {
+    return db('categories').where({ name: categoryName });
+}
+
 function getCategoryById(id) {
     return db('categories').where({ id: id })
+}
+
+function insertCategory(name) {
+    return db('categories').insert({name: name});
 }
 
 function getNotes(id) {
@@ -35,6 +43,7 @@ function updateNote(note) {
 
 module.exports = {
     getCategories,
+    getCategoryByName,
     getCategoryById,
     insertCategory,
     getNotes,
