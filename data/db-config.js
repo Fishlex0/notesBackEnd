@@ -23,8 +23,12 @@ function getCategoryById(id) {
     return db('categories').where({ id: id })
 }
 
+function deleteCategory(id) {
+    return db('categories').where({ id: id }).del();
+}
+
 function insertCategory(name) {
-    return db('categories').insert({name: name});
+    return db('categories').insert({ name: name });
 }
 
 function getNotes(id) {
@@ -38,13 +42,14 @@ function insertNote(note) {
 function updateNote(note) {
     return db('notes')
         .where({ id: note.noteId })
-        .update({title: note.title, content: note.content, category_id: note.category_id});
+        .update({ title: note.title, content: note.content, category_id: note.category_id });
 }
 
 module.exports = {
     getCategories,
     getCategoryByName,
     getCategoryById,
+    deleteCategory,
     insertCategory,
     getNotes,
     insertNote,
