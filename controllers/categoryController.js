@@ -43,7 +43,7 @@ exports.insertCategory = async (req, res) => {
 
 exports.deleteCategory = async (req, res) => {
   try {
-    const { categoryId } = req.body;
+    const categoryId = req.params.categoryId;
 
     if (!categoryId || typeof categoryId !== 'number') {
       return res.status(400).send({ error: 'Category id is required' });
