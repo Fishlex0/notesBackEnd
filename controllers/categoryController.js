@@ -45,7 +45,7 @@ exports.deleteCategory = async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
 
-    if (!categoryId || typeof categoryId !== 'number') {
+    if (!categoryId) {
       return res.status(400).send({ error: 'Category id is required' });
     }
 
