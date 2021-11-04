@@ -50,11 +50,7 @@ exports.deleteCategory = async (req, res) => {
     }
 
     // will return the number of deleted items
-    const deletedCategory = await db.deleteCategory(categoryId);
-
-    if (deletedCategory !== 1) {
-      return res.status(404).send({ error: 'Category not found' });
-    }
+    await db.deleteCategory(categoryId);
 
     return res.status(200).send();
   } catch (error) {
