@@ -45,6 +45,10 @@ function updateNote(note) {
         .update({ title: note.title, content: note.content, category_id: note.category_id });
 }
 
+function deleteNote(id) {
+    return db('notes').where({ id: id }).del();
+}
+
 module.exports = {
     getCategories,
     getCategoryByName,
@@ -54,4 +58,5 @@ module.exports = {
     getNotes,
     insertNote,
     updateNote,
+    deleteNote,
 }

@@ -11,5 +11,6 @@ router.delete('/categories/:id', categoryController.deleteCategory);
 
 router.get('/notes/:categoryId', notesController.notes);
 router.post('/notes', notesController.saveNote);
+router.delete('/notes/:id', notesController.deleteNote);
 
 module.exports = router;
