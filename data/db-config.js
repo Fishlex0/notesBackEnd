@@ -3,6 +3,11 @@ const config = require('../knexfile.js');
 
 const db = knex(config.development);
 
+const enableForeignKeys = async () => {
+    await db.raw('PRAGMA foreign_keys = ON');
+}
+enableForeignKeys();
+
 // TODO: maybe move categories and notes in separate files
 
 function insertCategory(category) {
