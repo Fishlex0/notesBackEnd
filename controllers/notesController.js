@@ -8,7 +8,7 @@ exports.notes = async (req, res) => {
     if (notes.length > 0) {
       return res.status(200).json(notes)
     }
-    res.status(404).json({error: 'No data found'});
+    res.status(200).json([]);
   } catch (error) {
     console.log('Error: ', error);
     
