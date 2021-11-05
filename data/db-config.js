@@ -10,11 +10,6 @@ enableForeignKeys();
 
 // TODO: maybe move categories and notes in separate files
 
-function insertCategory(category) {
-    return db('categories')
-        .insert(category)
-        .then(ids => ({ id: ids[0] }));
-}
 
 function getCategories() {
     return db('categories');
