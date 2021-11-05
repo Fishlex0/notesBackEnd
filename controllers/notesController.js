@@ -36,6 +36,7 @@ exports.saveNote = async (req, res) => {
       return res.status(404).send({ 'error': 'Category not found' });
     }
 
+    // TODO: change updatedAt value
     // based on noteId value, insert or update the note
     let note = null;
     if (!noteId) {
