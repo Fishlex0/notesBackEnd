@@ -63,7 +63,7 @@ function deleteNote(id) {
 /**
  * USERS
  */
-function getUsers(name) {
+function getUser(name) {
     return db('users').where({ username: name });
 }
 
@@ -82,6 +82,6 @@ module.exports = {
     insertNote,
     updateNote,
     deleteNote,
-    getUsers,
+    getUser,
     insertUser
 }

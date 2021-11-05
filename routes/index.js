@@ -25,5 +25,6 @@ router.delete('/notes/:id', notesController.deleteNote);
  * USERS
  */
 router.post('/users', usersController.insertUser);
+router.post('/login', usersController.login);
 
 module.exports = router;
