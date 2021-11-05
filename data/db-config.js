@@ -12,9 +12,7 @@ enableForeignKeys();
 // TODO: maybe move categories and notes in separate files or too lazy
 
 /**
- * 
  * CATEGORIES
- * 
  */
 function getCategories() {
     return db('categories');
@@ -42,9 +40,7 @@ function updateCategory(id, name) {
 }
 
 /**
- * 
  * NOTES
- * 
  */
 function getNotes(id) {
     return db('notes').where({ category_id: Number(id) });
@@ -64,6 +60,17 @@ function deleteNote(id) {
     return db('notes').where({ id: id }).del();
 }
 
+/**
+ * USERS
+ */
+function getUsers(name) {
+    return db('users').where({ username: name });
+}
+
+function insertUser(user) {
+    return db('users').insert(user);
+}
+
 module.exports = {
     getCategories,
     getCategoryByName,
@@ -75,4 +82,6 @@ module.exports = {
     insertNote,
     updateNote,
     deleteNote,
+    getUsers,
+    insertUser
 }
