@@ -3,18 +3,24 @@ const config = require('../knexfile.js');
 
 const db = knex(config.development);
 
+// this enables foreign key functionality for sqlite
 const enableForeignKeys = async () => {
     await db.raw('PRAGMA foreign_keys = ON');
 }
 enableForeignKeys();
 
-// TODO: maybe move categories and notes in separate files
+// TODO: maybe move categories and notes in separate files or too lazy
 
-
+/**
+ * 
+ * CATEGORIES
+ * 
+ */
 function getCategories() {
     return db('categories');
 }
 
+// TODO: maybe remove this function
 function getCategoryByName(categoryName) {
     return db('categories').where({ name: categoryName });
 }
@@ -31,6 +37,15 @@ function insertCategory(name) {
     return db('categories').insert({ name: name });
 }
 
+function updateCategory(id, name) {
+    return db('categories').where({ id: id }).update({ name: name });
+}
+
+/**
+ * 
+ * NOTES
+ * 
+ */
 function getNotes(id) {
     return db('notes').where({ category_id: Number(id) });
 }
@@ -55,6 +70,7 @@ module.exports = {
     getCategoryById,
     deleteCategory,
     insertCategory,
+    updateCategory,
     getNotes,
     insertNote,
     updateNote,

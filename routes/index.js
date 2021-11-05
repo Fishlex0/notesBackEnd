@@ -8,6 +8,7 @@ const notesController = require('../controllers/notesController');
 router.get('/categories', categoryController.categories);
 router.post('/categories', categoryController.insertCategory);
 router.delete('/categories/:id', categoryController.deleteCategory);
+router.patch('/categories/:id', categoryController.updateCategory);
 
 router.get('/notes/:categoryId', notesController.notes);
 router.post('/notes', notesController.saveNote);

@@ -61,3 +61,25 @@ exports.deleteCategory = async (req, res) => {
     });
   }
 }
+
+exports.updateCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+    const categoryName = req.body.categoryName;
+
+    if (!categoryId || !categoryName) {
+      return res.status(400).send({ error: 'Category id and name are required' });
+    }
+
+    // will return the number of deleted items
+    await db.updateCategory(categoryId, categoryName);
+
+    return res.status(200).send();
+  } catch (error) {
+    console.log('Error: ', error);
+
+    res.status(500).json({
+      error: DEFAULT_ERROR_MESSAGE,
+    });
+  }
+}
