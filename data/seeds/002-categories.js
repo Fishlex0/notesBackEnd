@@ -5,7 +5,11 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('categories').insert([
-        {id: 1, name: 'My first category'},
+        {
+          id: 1,
+          name: 'My first category',
+          user_id: 1
+        },
       ]);
     });
 };
