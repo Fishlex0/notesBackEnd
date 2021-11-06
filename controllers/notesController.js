@@ -25,7 +25,6 @@ exports.saveNote = async (req, res) => {
 
     // check that all fields are completed
     if (typeof categoryId !== 'number' || typeof title !== 'string' || typeof content !== 'string') {
-      console.log('Data is in a wrong format', typeof categoryId, typeof title, typeof content);
       return res.status(400).send({ error: 'The note does not contain the proper data.' })
     }
 

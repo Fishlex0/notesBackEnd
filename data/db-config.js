@@ -72,6 +72,21 @@ function insertUser(user) {
     return db('users').insert(user);
 }
 
+/**
+ * SESSION
+ */
+function insertSession(session) {
+    return db('sessions').insert(session);
+}
+
+function deleteSession(userId) {
+    return db('sessions').where({user_id: userId}).del();
+}
+
+function getSession(token) {
+    return db('sessions').where({token});
+}
+
 module.exports = {
     getCategories,
     getCategoryByName,
@@ -84,5 +99,8 @@ module.exports = {
     updateNote,
     deleteNote,
     getUser,
-    insertUser
+    insertUser,
+    insertSession,
+    deleteSession,
+    getSession
 }

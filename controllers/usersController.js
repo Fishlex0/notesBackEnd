@@ -1,5 +1,6 @@
 const db = require('../data/db-config');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 const DEFAULT_ERROR_MESSAGE = 'Ops, something when wrong';
 const SALT_ROUNDS = 10;
@@ -48,7 +49,31 @@ exports.login = async (req, res) => {
       return res.status(400).send({ error: 'Username or password are incorrect' });
     }
 
-    // TODO: set session cookie
+    const token = crypto.randomBytes(64).toString('hex');
+
+    // TTL 15 minutes
+    res.cookie('s_cookie', token, {maxAge: 5 * 60000});
+    // delete any previous sessions for this user
+    await db.deleteSession(user[0].id);
+    // insert a new session
+    await db.insertSession({token, user_id: user[0].id});
+
+    res.status(200).send();
+  } catch (error) {
+    console.log('Error: ', error);
+
+    res.status(500).json({
+      error: DEFAULT_ERROR_MESSAGE,
+    });
+  }
+};
+
+exports.logout = async (req, res) => {
+  try {
+    if (req.cookies && req.cookies.s_cookie) {
+      res.clearCookie('s_cookie');
+    }
+
     res.status(200).send();
   } catch (error) {
     console.log('Error: ', error);

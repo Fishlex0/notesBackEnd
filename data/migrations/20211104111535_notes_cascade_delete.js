@@ -12,9 +12,5 @@ exports.up = function(knex) {
 exports.down = function(knex) {
   return knex.schema.alterTable('notes', (table) => {
     table.dropForeign('category_id');
-
-    table.foreign('category_id')
-      .references('categories.id')
-      .onDelete('NO ACTION');
   });
 };
