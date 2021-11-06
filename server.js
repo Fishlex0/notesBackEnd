@@ -17,12 +17,11 @@ app.use(cors());
 app.use(cookieParser());
 // PARSE REQUEST BODY
 app.use(express.json());
-app.use(authMiddleware.isLoggedIn);
 
 // ROUTES
 app.use(usersRoutes);
-app.use('/categories', categoriesRoutes);
-app.use('/notes', notesRoutes);
+app.use('/categories', authMiddleware.isLoggedIn, categoriesRoutes);
+app.use('/notes', authMiddleware.isLoggedIn, notesRoutes);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}...`);
