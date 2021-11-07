@@ -1,5 +1,6 @@
 const db = require('../data/db-config');
 const DEFAULT_ERROR_MESSAGE = 'Ops, something when wrong';
+const getUserFromSession = require('../helpers/getUserFromSession');
 
 exports.categories = async (req, res) => {
   try {
@@ -29,7 +30,12 @@ exports.insertCategory = async (req, res) => {
       return res.status(400).send({ error: "Category name is already used...sugi" });
     }
 
-    const saved = await db.insertCategory(categoryName);
+    const user = await getUserFromSession(req);
+    if (user === null) {
+      throw new Error('User not found');
+    }
+
+    await db.insertCategory({ name: categoryName, userId: user.user_id });
 
     return res.status(200).send();
   } catch (error) {

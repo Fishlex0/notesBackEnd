@@ -31,9 +31,8 @@ function deleteCategory(id) {
     return db('categories').where({ id: id }).del();
 }
 
-// TODO: add a user id foreign key
-function insertCategory(name) {
-    return db('categories').insert({ name: name });
+function insertCategory(category) {
+    return db('categories').insert({name: category.name, user_id: category.userId});
 }
 
 function updateCategory(id, name) {
