@@ -1,6 +1,5 @@
 const db = require('../data/db-config');
 const DEFAULT_ERROR_MESSAGE = 'Ops, something when wrong';
-const getUserFromSession = require('../helpers/getUserFromSession');
 
 exports.categories = async (req, res) => {
   try {
