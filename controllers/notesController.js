@@ -3,7 +3,12 @@ const DEFAULT_ERROR_MESSAGE = 'Ops, something when wrong';
 
 exports.notes = async (req, res) => {
   try {
-    const notes = await db.getNotes(req.params.categoryId);
+    // check if user owns that category
+    const category = await db.getCategoryById(req.params.categoryId, req.user.user_id);
+    if (category.length === 0) {
+      return res.status(404).send({ error: 'Category not found' });
+    }
+    const notes = await db.getNotesByCategoryId(req.params.categoryId);
 
     if (notes.length > 0) {
       return res.status(200).json(notes)
@@ -28,14 +33,12 @@ exports.saveNote = async (req, res) => {
       return res.status(400).send({ error: 'The note does not contain the proper data.' })
     }
 
-    // check if the required category exists
-    const foundCategory = await db.getCategoryById(categoryId);
-
-    if (foundCategory.length === 0) {
+    // check if user owns that category
+    const category = await db.getCategoryById(categoryId, req.user.user_id);
+    if (category.length === 0) {
       return res.status(404).send({ 'error': 'Category not found' });
     }
 
-    // TODO: change updatedAt value
     // based on noteId value, insert or update the note
     let note = null;
     if (!noteId) {
@@ -62,9 +65,18 @@ exports.saveNote = async (req, res) => {
 exports.deleteNote = async (req, res) => {
   try {
     const noteId = req.params.id;
-    
+
     if (!noteId) {
       return res.status(400).send({ error: 'Note id is required' });
+    }
+
+    const note = await db.getNoteById(noteId);
+
+    // TODO: maybe refactor this to use a query JOIN
+    // check if user owns the category for that note
+    const category = await db.getCategoryById(note[0].category_id, req.user.user_id);
+    if (category.length === 0) {
+      return res.status(404).send({ 'error': 'Category not found' });
     }
 
     await db.deleteNote(noteId);

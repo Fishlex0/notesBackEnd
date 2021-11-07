@@ -41,24 +41,24 @@ function updateCategory(id, name, user_id) {
 /**
  * NOTES
  */
-// TODO: check first if category is owned by user
-function getNotes(id) {
+function getNotesByCategoryId(id) {
     return db('notes').where({ category_id: Number(id) });
 }
 
-// TODO: check first if category is owned by user
+function getNoteById(id) {
+    return db('notes').where({ id: Number(id) });
+}
+
 function insertNote(note) {
     return db('notes').insert(note);
 }
 
-// TODO: check first if category is owned by user
 function updateNote(note) {
     return db('notes')
         .where({ id: note.noteId })
         .update({ title: note.title, content: note.content, category_id: note.category_id, updated_at: (new Date()).toISOString() });
 }
 
-// TODO: check first if category is owned by user
 function deleteNote(id) {
     return db('notes').where({ id: id }).del();
 }
@@ -96,7 +96,8 @@ module.exports = {
     deleteCategory,
     insertCategory,
     updateCategory,
-    getNotes,
+    getNotesByCategoryId,
+    getNoteById,
     insertNote,
     updateNote,
     deleteNote,
