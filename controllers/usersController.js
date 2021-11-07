@@ -16,7 +16,7 @@ exports.insertUser = async (req, res) => {
     // check if the username already exists
     const user = await db.getUser(username.toLowerCase());
 
-    if (users.length !== 0) {
+    if (user.length !== 0) {
       res.status(400).send({ error: 'Username is already used' });
     }
 
