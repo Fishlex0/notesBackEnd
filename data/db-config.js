@@ -14,48 +14,51 @@ enableForeignKeys();
 /**
  * CATEGORIES
  */
-function getCategories() {
-    return db('categories');
+function getCategories(user_id) {
+    return db('categories').where({ user_id });
 }
 
-// TODO: maybe remove this function
-function getCategoryByName(categoryName) {
-    return db('categories').where({ name: categoryName });
+function getCategoryByName(categoryName, user_id) {
+    return db('categories').where({ name: categoryName, user_id });
 }
 
-function getCategoryById(id) {
-    return db('categories').where({ id: id })
+function getCategoryById(id, user_id) {
+    return db('categories').where({ id, user_id })
 }
 
-function deleteCategory(id) {
-    return db('categories').where({ id: id }).del();
+function deleteCategory(id, user_id) {
+    return db('categories').where({ id, user_id }).del();
 }
 
 function insertCategory(category) {
-    return db('categories').insert({name: category.name, user_id: category.userId});
+    return db('categories').insert({ name: category.name, user_id: category.userId });
 }
 
-function updateCategory(id, name) {
-    return db('categories').where({ id: id }).update({ name: name });
+function updateCategory(id, name, user_id) {
+    return db('categories').where({ id, user_id }).update({ name: name });
 }
 
 /**
  * NOTES
  */
+// TODO: check first if category is owned by user
 function getNotes(id) {
     return db('notes').where({ category_id: Number(id) });
 }
 
+// TODO: check first if category is owned by user
 function insertNote(note) {
     return db('notes').insert(note);
 }
 
+// TODO: check first if category is owned by user
 function updateNote(note) {
     return db('notes')
         .where({ id: note.noteId })
         .update({ title: note.title, content: note.content, category_id: note.category_id, updated_at: (new Date()).toISOString() });
 }
 
+// TODO: check first if category is owned by user
 function deleteNote(id) {
     return db('notes').where({ id: id }).del();
 }
@@ -79,11 +82,11 @@ function insertSession(session) {
 }
 
 function deleteSession(userId) {
-    return db('sessions').where({user_id: userId}).del();
+    return db('sessions').where({ user_id: userId }).del();
 }
 
 function getSession(token) {
-    return db('sessions').where({token});
+    return db('sessions').where({ token });
 }
 
 module.exports = {

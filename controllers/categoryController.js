@@ -4,7 +4,7 @@ const getUserFromSession = require('../helpers/getUserFromSession');
 
 exports.categories = async (req, res) => {
   try {
-    const categories = await db.getCategories();
+    const categories = await db.getCategories(req.user.user_id);
 
     res.status(200).json(categories);
   } catch (error) {
@@ -23,19 +23,15 @@ exports.insertCategory = async (req, res) => {
     if (!categoryName || typeof categoryName !== 'string') {
       return res.status(400).send({ error: 'Category name is not right' });
     }
+
     // check if there is an existing category with that name
-    const category = await db.getCategoryByName(categoryName);
+    const category = await db.getCategoryByName(categoryName, req.user.user_id);
 
     if (category.length > 0) {
-      return res.status(400).send({ error: "Category name is already used...sugi" });
+      return res.status(400).send({ error: "Category name is already used" });
     }
 
-    const user = await getUserFromSession(req);
-    if (user === null) {
-      throw new Error('User not found');
-    }
-
-    await db.insertCategory({ name: categoryName, userId: user.user_id });
+    await db.insertCategory({ name: categoryName, userId: req.user.user_id });
 
     return res.status(200).send();
   } catch (error) {
@@ -55,8 +51,7 @@ exports.deleteCategory = async (req, res) => {
       return res.status(400).send({ error: 'Category id is required' });
     }
 
-    // will return the number of deleted items
-    await db.deleteCategory(categoryId);
+    await db.deleteCategory(categoryId, req.user.user_id);
 
     return res.status(200).send();
   } catch (error) {
@@ -77,8 +72,7 @@ exports.updateCategory = async (req, res) => {
       return res.status(400).send({ error: 'Category id and name are required' });
     }
 
-    // will return the number of deleted items
-    await db.updateCategory(categoryId, categoryName);
+    await db.updateCategory(categoryId, categoryName, req.user.user_id);
 
     return res.status(200).send();
   } catch (error) {
