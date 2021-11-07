@@ -53,7 +53,7 @@ function insertNote(note) {
 function updateNote(note) {
     return db('notes')
         .where({ id: note.noteId })
-        .update({ title: note.title, content: note.content, category_id: note.category_id });
+        .update({ title: note.title, content: note.content, category_id: note.category_id, updated_at: (new Date()).toISOString() });
 }
 
 function deleteNote(id) {
