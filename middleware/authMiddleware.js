@@ -1,4 +1,7 @@
-const express = require('express');
+/**
+ * adds user_id on request if there is a cookie present
+ * else returns 401
+ */
 const db = require('../data/db-config');
 
 exports.isLoggedIn = async (req, res, next) => {
@@ -8,6 +11,10 @@ exports.isLoggedIn = async (req, res, next) => {
     if (session.length === 0) {
       return res.status(401).send({error: 'You must be authenticated to access this feature'});
     }
+
+    req.user = {
+      user_id: session[0].user_id,
+    };
   } else {
     return res.status(401).send({error: 'You must be authenticated to access this feature'});
   }
