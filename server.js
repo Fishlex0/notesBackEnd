@@ -12,7 +12,11 @@ const port = 3001;
 const app = express();
 
 // CORS CONFIG
-app.use(cors({credentials: true}));
+app.use(cors({
+  origin: 'http://localhost:4200',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 // PARSE COOKIES
 app.use(cookieParser());
 // PARSE REQUEST BODY
