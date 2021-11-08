@@ -52,7 +52,7 @@ exports.login = async (req, res) => {
     const token = crypto.randomBytes(64).toString('hex');
 
     // TTL 15 minutes
-    res.cookie('s_cookie', token, {maxAge: 5 * 60000, sameSite: 'none'});
+    res.cookie('s_cookie', token, {maxAge: 5 * 60000});
     // delete any previous sessions for this user
     await db.deleteSession(user[0].id);
     // insert a new session
