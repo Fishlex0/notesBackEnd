@@ -15,6 +15,7 @@ const app = express();
 app.use(cors({
   origin: 'http://localhost:4200',
   allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH', 'OPTIONS'],
   credentials: true
 }));
 // PARSE COOKIES
