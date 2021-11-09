@@ -1,7 +1,6 @@
 const db = require('../data/db-config');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const authMiddleware = require('../middleware/authMiddleware');
 
 const DEFAULT_ERROR_MESSAGE = 'Ops, something when wrong';
 const SALT_ROUNDS = 10;
