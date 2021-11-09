@@ -1,6 +1,7 @@
 const db = require('../data/db-config');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const authMiddleware = require('../middleware/authMiddleware');
 
 const DEFAULT_ERROR_MESSAGE = 'Ops, something when wrong';
 const SALT_ROUNDS = 10;
@@ -83,3 +84,15 @@ exports.logout = async (req, res) => {
     });
   }
 };
+
+exports.isLoggedIn = async (req, res) => {
+  try {
+    res.status(200).send();
+  } catch (error) {
+    console.log('Error: ', error);
+
+    res.status(500).json({
+      error: DEFAULT_ERROR_MESSAGE,
+    });
+  }
+}
