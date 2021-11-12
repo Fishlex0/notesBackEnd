@@ -9,14 +9,14 @@ exports.isLoggedIn = async (req, res, next) => {
     const session = await db.getSession(req.cookies.s_cookie);
 
     if (session.length === 0) {
-      return res.status(401).send({error: 'You must be authenticated to access this feature'});
+      return res.status(401).send({status: 401});
     }
 
     req.user = {
       user_id: session[0].user_id,
     };
   } else {
-    return res.status(401).send({error: 'You must be authenticated to access this feature'});
+    return res.status(401).send(status: 401);
   }
   next();
 };

@@ -10,14 +10,14 @@ exports.insertUser = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-      return res.status(400).send({ error: 'Username and password are required' });
+      return res.status(400).send({ status: 400, error: 'Username and password are required' });
     }
 
     // check if the username already exists
     const user = await db.getUser(username.toLowerCase());
 
     if (user.length !== 0) {
-      res.status(400).send({ error: 'Username is already used' });
+      res.status(400).send({ status: 400, error: 'Username is already used' });
     }
 
     const hashedPass = await bcrypt.hash(password, SALT_ROUNDS);
@@ -38,7 +38,7 @@ exports.login = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-      return res.status(400).send({ error: 'Username and password are required' });
+      return res.status(400).send({ status: 400 });
     }
 
     // check if the username already exists
@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
 
     const passwordMatch = await bcrypt.compare(password, user[0].password)
     if (passwordMatch !== true) {
-      return res.status(400).send({ error: 'Username or password are incorrect' });
+      return res.status(400).send({ status: 400 });
     }
 
     const token = crypto.randomBytes(64).toString('hex');
