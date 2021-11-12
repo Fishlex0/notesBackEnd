@@ -16,7 +16,7 @@ exports.isLoggedIn = async (req, res, next) => {
       user_id: session[0].user_id,
     };
   } else {
-    return res.status(401).send(status: 401);
+    return res.status(401).send({status: 401});
   }
   next();
 };
